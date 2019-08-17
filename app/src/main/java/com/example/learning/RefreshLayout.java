@@ -44,14 +44,14 @@ public class RefreshLayout extends FrameLayout {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        float y = event.getY();
+        int y = (int) event.getY();
         switch (event.getActionMasked()) {
             case MotionEvent.ACTION_MOVE:
-                int offset = (int) (y - lastY);
+                int offset = (y - lastY);
 
                 int temp = offsetFromTop + offset;
                 if (temp > headerView.getMeasuredHeight()) {
-                    offset = offsetFromTop - headerView.getMeasuredHeight();
+                    offset = headerView.getMeasuredHeight() - offsetFromTop;
                 } else if (temp < 0) {
                     offset = 0 - offsetFromTop;
                 }
@@ -73,7 +73,7 @@ public class RefreshLayout extends FrameLayout {
                 break;
         }
 
-        lastY = (int) y;
+        lastY = y;
 
         return true;
     }
@@ -86,14 +86,15 @@ public class RefreshLayout extends FrameLayout {
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         boolean headerViewVisible = headerViewVisible();
 
-        float y = ev.getY();
+        int y = (int) ev.getY();
         if (ev.getActionMasked() == MotionEvent.ACTION_MOVE) {
-            int offset = (int) (y - lastY);
+            int offset = (y - lastY);
+            lastY = y;
             return (offset > 0 && !headerViewVisible && !canContentScrollUp()) ||
                     (offset < 0 && headerViewVisible && canContentScrollDown());
         }
 
-        lastY = (int) y;
+        lastY = y;
 
         return false;
     }
