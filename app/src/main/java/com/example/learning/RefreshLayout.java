@@ -47,7 +47,7 @@ public class RefreshLayout extends FrameLayout {
         int y = (int) event.getY();
         switch (event.getActionMasked()) {
             case MotionEvent.ACTION_MOVE:
-                int offset = (y - lastY);
+                int offset = (int) ((y - lastY) * 0.8f);
 
                 int temp = offsetFromTop + offset;
                 if (temp > headerView.getMeasuredHeight()) {
