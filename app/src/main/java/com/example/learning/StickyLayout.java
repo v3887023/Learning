@@ -7,15 +7,15 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 
-public class RefreshLayout extends FrameLayout {
-    private static final String TAG = RefreshLayout.class.getSimpleName();
+public class StickyLayout extends FrameLayout {
+    private static final String TAG = StickyLayout.class.getSimpleName();
 
     private View headerView;
     private View contentView;
     private int lastY;
     private int offsetFromTop = 0;
 
-    public RefreshLayout(Context context, AttributeSet attrs) {
+    public StickyLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
