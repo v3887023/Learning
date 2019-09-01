@@ -21,6 +21,10 @@ public class SubjectManager {
     }
 
     public static SubjectManager get() {
+        if (subjectManager == null) {
+            subjectManager = new SubjectManager();
+        }
+
         return subjectManager;
     }
 

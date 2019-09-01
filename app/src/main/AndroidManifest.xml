@@ -21,9 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity"></activity>
-        <activity
-            android:name=".SecondActivity"
-            android:theme="@style/MyTheme" />
+        <activity android:name=".SecondActivity" />
         <activity android:name=".view.ViewActivity" />
     </application>
 

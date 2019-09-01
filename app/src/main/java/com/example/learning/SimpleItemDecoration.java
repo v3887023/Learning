@@ -1,14 +1,10 @@
 package com.example.learning;
 
-import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Rect;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
-import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 /**
@@ -18,42 +14,38 @@ import android.view.View;
  * Description:
  */
 class SimpleItemDecoration extends RecyclerView.ItemDecoration {
-    private final static int DEFAULT_DIVIDER_COLOR = Color.parseColor("#F5F5F5");
+    private static final String TAG = SimpleItemDecoration.class.getSimpleName();
     private int padding;
-    private Drawable dividerDrawable;
 
-    public SimpleItemDecoration(int paddingPixel) {
-        this(paddingPixel, DEFAULT_DIVIDER_COLOR);
-    }
-
-    public SimpleItemDecoration(int padding, @ColorInt int dividerColor) {
+    public SimpleItemDecoration(int padding) {
         this.padding = padding;
-        this.dividerDrawable = new ColorDrawable(dividerColor);
     }
 
     @Override
     public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
-        super.getItemOffsets(outRect, view, parent, state);
-
         RecyclerView.LayoutManager layoutManager = parent.getLayoutManager();
-        if (layoutManager instanceof LinearLayoutManager) {
-            int i = parent.indexOfChild(view);
-            if (i > 0) {
-                outRect.top = padding;
-            }
+        RecyclerView.Adapter adapter = parent.getAdapter();
+        if (layoutManager == null || adapter == null) {
+            return;
         }
-    }
 
-    @Override
-    public void onDraw(@NonNull Canvas c, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
-        super.onDraw(c, parent, state);
+        if (layoutManager instanceof LinearLayoutManager) {
+            int i = parent.getChildAdapterPosition(view);
+            Log.d(TAG, "i: " + i);
+            outRect.left = padding;
+            outRect.right = padding;
 
-        int childCount = parent.getChildCount();
-        for (int i = 1; i < childCount; i++) {
-            View child = parent.getChildAt(i);
-            int top = child.getTop();
-            dividerDrawable.setBounds(child.getLeft(), top - padding, child.getRight(), top);
-            dividerDrawable.draw(c);
+            if (i == 0) {
+                outRect.top = padding;
+            } else {
+                outRect.top = padding / 2;
+            }
+
+            if (i == adapter.getItemCount() - 1) {
+                outRect.bottom = padding;
+            } else {
+                outRect.bottom = padding / 2;
+            }
         }
     }
 }

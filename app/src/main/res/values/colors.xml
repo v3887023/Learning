@@ -6,4 +6,8 @@
 
     <color name="white">@android:color/white</color>
     <color name="colorItemPressed">#1a000000</color>
+    <color name="gray">#EDEDED</color>
+
+    <color name="tv_color1">#000000</color>
+    <color name="tv_color2">#7F7F7F</color>
 </resources>

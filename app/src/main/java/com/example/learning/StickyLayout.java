@@ -90,8 +90,9 @@ public class StickyLayout extends FrameLayout {
         if (ev.getActionMasked() == MotionEvent.ACTION_MOVE) {
             int offset = (y - lastY);
             lastY = y;
+
             return (offset > 0 && !headerViewVisible && !canContentScrollUp()) ||
-                    (offset < 0 && headerViewVisible && canContentScrollDown());
+                    (offset < 0 && headerViewVisible);
         }
 
         lastY = y;
@@ -101,9 +102,5 @@ public class StickyLayout extends FrameLayout {
 
     private boolean canContentScrollUp() {
         return contentView.canScrollVertically(-1);
-    }
-
-    private boolean canContentScrollDown() {
-        return contentView.canScrollVertically(1);
     }
 }
