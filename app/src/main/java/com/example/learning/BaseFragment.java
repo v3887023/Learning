@@ -2,6 +2,8 @@ package com.example.learning;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
@@ -10,6 +12,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 
 /**
  * Created by zhangcx@nemo-inc.com
@@ -20,6 +23,7 @@ import android.view.ViewGroup;
 public abstract class BaseFragment extends Fragment {
     protected Activity activity;
     private View contentView;
+    private int oldStatusBarColor;
 
     @Override
     public void onAttach(Context context) {
@@ -37,6 +41,12 @@ public abstract class BaseFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = activity.getWindow();
+            oldStatusBarColor = window.getStatusBarColor();
+            window.setStatusBarColor(getStatusBarColor());
+        }
+
         View view = inflater.inflate(getLayoutId(), container, false);
         this.contentView = view;
         return view;
@@ -47,6 +57,15 @@ public abstract class BaseFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         intViews();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            activity.getWindow().setStatusBarColor(oldStatusBarColor);
+        }
     }
 
     protected abstract void intViews();
@@ -64,5 +83,9 @@ public abstract class BaseFragment extends Fragment {
      */
     public boolean handleBackPressedEvent() {
         return false;
+    }
+
+    public int getStatusBarColor() {
+        return Color.WHITE;
     }
 }

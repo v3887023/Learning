@@ -2,6 +2,7 @@ package com.example.learning;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -27,6 +28,13 @@ public class StickyLayoutFragment extends BaseFragment {
 
         RecyclerView recyclerView = findViewById(R.id.list_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
+
+        DisplayMetrics dm = new DisplayMetrics();
+        activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
+
+        int padding = (int) (dm.density * 8);
+
+        recyclerView.addItemDecoration(new SimpleItemDecoration(padding));
         recyclerView.setAdapter(new BaseQuickAdapter<String, BaseViewHolder>(R.layout.item_text, list) {
             @Override
             protected void convert(BaseViewHolder helper, String item) {
@@ -38,5 +46,10 @@ public class StickyLayoutFragment extends BaseFragment {
     @Override
     public int getLayoutId() {
         return R.layout.fragment_sticky_layout;
+    }
+
+    @Override
+    public int getStatusBarColor() {
+        return getResources().getColor(android.R.color.holo_blue_light);
     }
 }
