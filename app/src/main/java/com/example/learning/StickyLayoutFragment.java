@@ -44,11 +44,6 @@ public class StickyLayoutFragment extends BaseFragment {
     }
 
     @Override
-    public boolean fullScreen() {
-        return true;
-    }
-
-    @Override
     public int getLayoutId() {
         return R.layout.fragment_sticky_layout;
     }
