@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 
 /**
  * Created by zhangcx@nemo-inc.com
@@ -38,9 +39,21 @@ public abstract class BaseFragment extends Fragment {
         }
     }
 
+    protected void setFullScreen(boolean fullScreen) {
+        if (fullScreen) {
+            activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        } else {
+            activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        if (fullScreen()) {
+            setFullScreen(true);
+        }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = activity.getWindow();
             oldStatusBarColor = window.getStatusBarColor();
@@ -62,6 +75,11 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+
+
+        if (fullScreen()) {
+            setFullScreen(false);
+        }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             activity.getWindow().setStatusBarColor(oldStatusBarColor);
@@ -87,5 +105,9 @@ public abstract class BaseFragment extends Fragment {
 
     public int getStatusBarColor() {
         return Color.WHITE;
+    }
+
+    public boolean fullScreen() {
+        return false;
     }
 }
