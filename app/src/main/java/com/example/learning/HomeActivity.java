@@ -18,19 +18,25 @@ public class HomeActivity extends AppCompatActivity {
 
         fragmentManager = getSupportFragmentManager();
 
-        mMainFragment = new MainFragment();
-        FragmentUtil.loadFragment(fragmentManager, R.id.fragment_container, null, mMainFragment, false, false);
+        if (savedInstanceState == null) {
+
+            mMainFragment = new MainFragment();
+            FragmentUtil.loadFragment(fragmentManager, R.id.fragment_container, null, mMainFragment, false, false);
+        }
     }
 
     @Override
     public void onBackPressed() {
         List<Fragment> fragments = fragmentManager.getFragments();
-        int size = fragments.size();
 
-        Fragment fragment = fragments.get(size - 1);
-        if (fragment instanceof BaseFragment) {
-            if (((BaseFragment) fragment).handleBackPressedEvent()) {
-                return;
+        if (fragments != null && fragments.size() > 0) {
+            int size = fragments.size();
+
+            Fragment fragment = fragments.get(size - 1);
+            if (fragment instanceof BaseFragment) {
+                if (((BaseFragment) fragment).handleBackPressedEvent()) {
+                    return;
+                }
             }
         }
 

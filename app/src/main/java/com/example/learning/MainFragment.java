@@ -6,6 +6,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 
+import com.example.learning.fragment.ListViewTestFragment;
+import com.example.learning.fragment.OrientationTestFragment;
+import com.example.learning.fragment.StickyLayoutFragment;
+
 import java.util.List;
 
 public class MainFragment extends BaseFragment {
@@ -18,6 +22,8 @@ public class MainFragment extends BaseFragment {
         SubjectManager subjectManager = SubjectManager.get();
         SubjectManager.Creator creator = subjectManager.creator();
         creator.register(new Subject("StickyLayout", "自定义的 StickyLayout，不过目前还不完善"), StickyLayoutFragment.FACTORY);
+        creator.register(new Subject("ListView 动态设置宽度", "项目里遇到要动态设置 ListView 的宽度，在这里测试一下", true), ListViewTestFragment.FACTORY);
+        creator.register(new Subject("旋转屏幕", "BaseFragment 增加控制屏幕方向的方法", true), OrientationTestFragment.FACTORY);
 
         subjectList = creator.create();
 

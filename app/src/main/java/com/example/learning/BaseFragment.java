@@ -2,6 +2,7 @@ package com.example.learning;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -25,6 +26,7 @@ public abstract class BaseFragment extends Fragment {
     protected Activity activity;
     private View contentView;
     private int oldStatusBarColor;
+    private int originScreenOrientation;
 
     @Override
     public void onAttach(Context context) {
@@ -50,6 +52,8 @@ public abstract class BaseFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        originScreenOrientation = getRequestedOrientation();
+
         if (fullScreen()) {
             setFullScreen(true);
         }
@@ -83,6 +87,34 @@ public abstract class BaseFragment extends Fragment {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             activity.getWindow().setStatusBarColor(oldStatusBarColor);
+        }
+    }
+
+    protected int getRequestedOrientation() {
+        return activity == null ? ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED : activity.getRequestedOrientation();
+    }
+
+    protected void setRequestedOrientation(int requestedOrientation) {
+        if (activity != null) {
+            activity.setRequestedOrientation(requestedOrientation);
+        }
+    }
+
+    protected boolean isOrientationPortrait() {
+        return getRequestedOrientation() == ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+    }
+
+    protected void requestOrientationPortrait() {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+    }
+
+    protected void requestOrientationLandscape() {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+    }
+
+    protected void restoreOrientation() {
+        if (originScreenOrientation != getRequestedOrientation()) {
+            setRequestedOrientation(originScreenOrientation);
         }
     }
 

@@ -13,7 +13,7 @@ import android.view.View;
  * <p>
  * Description:
  */
-class SimpleItemDecoration extends RecyclerView.ItemDecoration {
+public class SimpleItemDecoration extends RecyclerView.ItemDecoration {
     private static final String TAG = SimpleItemDecoration.class.getSimpleName();
     private int padding;
 

@@ -1,4 +1,4 @@
-package com.example.learning;
+package com.example.learning.fragment;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -6,6 +6,10 @@ import android.util.DisplayMetrics;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.example.learning.BaseFragment;
+import com.example.learning.Instantiable;
+import com.example.learning.R;
+import com.example.learning.SimpleItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
