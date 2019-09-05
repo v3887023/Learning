@@ -15,6 +15,8 @@ public class Subject {
 
     private String subtitle;
 
+    private boolean test;
+
     public Subject(String title) {
         this.title = title;
     }
@@ -24,12 +26,26 @@ public class Subject {
         this.subtitle = subtitle;
     }
 
+    public Subject(String title, String subtitle, boolean test) {
+        this.title = title;
+        this.subtitle = subtitle;
+        this.test = test;
+    }
+
     public String getTitle() {
         return title;
     }
 
     public String getSubtitle() {
         return subtitle;
+    }
+
+    public boolean isTest() {
+        return test;
+    }
+
+    public void setTest(boolean test) {
+        this.test = test;
     }
 
     @Override

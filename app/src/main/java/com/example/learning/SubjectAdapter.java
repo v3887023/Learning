@@ -1,5 +1,6 @@
 package com.example.learning;
 
+import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
@@ -25,6 +26,12 @@ public class SubjectAdapter extends BaseQuickAdapter<Subject, BaseViewHolder> {
     protected void convert(BaseViewHolder helper, Subject item) {
         setText(helper.getView(R.id.tv_title), item.getTitle());
         setText(helper.getView(R.id.tv_subtitle), item.getSubtitle());
+
+        if (item.isTest()) {
+            helper.getView(R.id.tv_label_test).setVisibility(View.VISIBLE);
+        } else {
+            helper.getView(R.id.tv_label_test).setVisibility(View.GONE);
+        }
     }
 
     private void setText(TextView textView, String text) {
