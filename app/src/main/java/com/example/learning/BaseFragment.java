@@ -28,6 +28,10 @@ public abstract class BaseFragment extends Fragment {
     private int oldStatusBarColor;
     private int originScreenOrientation;
 
+    public View getContentView() {
+        return contentView;
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -41,12 +45,21 @@ public abstract class BaseFragment extends Fragment {
         }
     }
 
-    protected void setFullScreen(boolean fullScreen) {
-        if (fullScreen) {
+    protected void setFullscreen(boolean fullscreen) {
+        if (fullscreen) {
             activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         } else {
             activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
+        onFullscreenStateChange(fullscreen);
+    }
+
+    protected void onFullscreenStateChange(boolean fullscreen) {
+
+    }
+
+    protected void onOrientationChange(int newOrientation) {
+
     }
 
     @Nullable
@@ -55,7 +68,7 @@ public abstract class BaseFragment extends Fragment {
         originScreenOrientation = getRequestedOrientation();
 
         if (fullScreen()) {
-            setFullScreen(true);
+            setFullscreen(true);
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -82,7 +95,7 @@ public abstract class BaseFragment extends Fragment {
 
 
         if (fullScreen()) {
-            setFullScreen(false);
+            setFullscreen(false);
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -97,6 +110,7 @@ public abstract class BaseFragment extends Fragment {
     protected void setRequestedOrientation(int requestedOrientation) {
         if (activity != null) {
             activity.setRequestedOrientation(requestedOrientation);
+            onOrientationChange(requestedOrientation);
         }
     }
 
