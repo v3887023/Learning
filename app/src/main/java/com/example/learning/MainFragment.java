@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 
 import com.example.learning.fragment.FlowLayoutFragment;
-import com.example.learning.fragment.FullscreenImageFragment;
+import com.example.learning.fragment.ImageFragment;
 import com.example.learning.fragment.FullscreenVideoFragment;
 import com.example.learning.fragment.GridLayoutTestFragment;
 import com.example.learning.fragment.ListViewTestFragment;
@@ -31,7 +31,7 @@ public class MainFragment extends BaseFragment {
         creator.register(new Subject("Grid Layout 测试", "动态设置 item 的宽高", true), GridLayoutTestFragment.FACTORY);
         creator.register(new Subject("FlowLayout", "尝试自定义一个流式布局 FlowLayout"), FlowLayoutFragment.FACTORY);
         creator.register(new Subject("视频切换全屏测试", "看看能够用别的方式实现全屏切换"), FullscreenVideoFragment.FACTORY);
-        creator.register(new Subject("图片切换全屏测试", "看看能够用别的方式实现全屏切换"), FullscreenImageFragment.FACTORY);
+        creator.register(new Subject("图片浏览", "图片浏览功能，点击看大图，下滑返回"), ImageFragment.FACTORY);
 
         subjectList = creator.create();
 

@@ -12,6 +12,7 @@
         android:id="@+id/fullscreen_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clickable="true"
         android:background="@android:color/black"
         android:visibility="gone" />
 </FrameLayout>
