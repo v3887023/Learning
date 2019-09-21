@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Log.d(TAG, "LifeCyclge: " + TAG + " - onCreate");
+        Log.d(TAG, "LifeCycle: " + TAG + " - onCreate");
 
         List<String> list = new ArrayList<>();
         for (int i = 0; i < 40; i++) {

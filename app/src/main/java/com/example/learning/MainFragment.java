@@ -13,6 +13,7 @@ import com.example.learning.fragment.FullscreenVideoFragment;
 import com.example.learning.fragment.GridLayoutTestFragment;
 import com.example.learning.fragment.ListViewTestFragment;
 import com.example.learning.fragment.OrientationTestFragment;
+import com.example.learning.fragment.ServerFragment;
 import com.example.learning.fragment.StickyLayoutFragment;
 
 import java.util.List;
@@ -32,6 +33,7 @@ public class MainFragment extends BaseFragment {
         creator.register(new Subject("Grid Layout 测试", "动态设置 item 的宽高", true), GridLayoutTestFragment.FACTORY);
         creator.register(new Subject("FlowLayout", "尝试自定义一个流式布局 FlowLayout"), FlowLayoutFragment.FACTORY);
         creator.register(new Subject("AIDL", "学习 AIDL"), AidlFragment.FACTORY);
+        creator.register(new Subject("文件服务器", "试试能否用 Socket 来给浏览器传文件"), ServerFragment.FACTORY);
         creator.register(new Subject("视频切换全屏测试", "看看能够用别的方式实现全屏切换"), FullscreenVideoFragment.FACTORY);
         creator.register(new Subject("图片浏览", "图片浏览功能，点击看大图，下滑返回"), ImageFragment.FACTORY);
 
