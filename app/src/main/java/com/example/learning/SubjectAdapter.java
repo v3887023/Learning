@@ -36,7 +36,7 @@ public class SubjectAdapter extends BaseQuickAdapter<Subject, BaseViewHolder> {
 
     private void setText(TextView textView, String text) {
         if (TextUtils.isEmpty(text)) {
-            textView.setVisibility(View.GONE);
+            textView.setVisibility(View.INVISIBLE);
         } else {
             textView.setVisibility(View.VISIBLE);
             textView.setText(text);
