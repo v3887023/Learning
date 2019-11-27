@@ -9,4 +9,9 @@
         <item name="android:statusBarColor" tools:targetApi="lollipop">@color/white</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
     </style>
+
+    <style name="TopPopupWindowStyle">
+        <item name="android:windowEnterAnimation">@anim/slide_top_down</item>
+        <item name="android:windowExitAnimation">@anim/slide_down_top</item>
+    </style>
 </resources>

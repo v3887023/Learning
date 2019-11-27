@@ -1,10 +1,15 @@
 package com.example.learning;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 
 public class StickyLayout extends FrameLayout {
@@ -14,9 +19,21 @@ public class StickyLayout extends FrameLayout {
     private View contentView;
     private int lastY;
     private int offsetFromTop = 0;
+    private ValueAnimator.AnimatorUpdateListener animatorUpdateListener = animation -> {
+        float value = (Float) animation.getAnimatedValue();
+        scrollTo(0, -(int) value);
+    };
+
+    public StickyLayout(@NonNull Context context) {
+        this(context, null);
+    }
 
     public StickyLayout(Context context, AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs, 0);
+    }
+
+    public StickyLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
     }
 
     @Override
@@ -64,11 +81,19 @@ public class StickyLayout extends FrameLayout {
                 break;
             case MotionEvent.ACTION_UP:
                 if (offsetFromTop < headerView.getMeasuredHeight() / 2) {
+                    ValueAnimator valueAnimator = ValueAnimator.ofFloat(offsetFromTop, 0);
+                    valueAnimator.setInterpolator(new DecelerateInterpolator());
+                    valueAnimator.addUpdateListener(animatorUpdateListener);
+                    valueAnimator.setDuration(200);
+                    valueAnimator.start();
                     offsetFromTop = 0;
-                    scrollTo(0, 0);
                 } else {
+                    ValueAnimator valueAnimator = ValueAnimator.ofFloat(offsetFromTop, headerView.getMeasuredHeight());
+                    valueAnimator.setInterpolator(new AccelerateInterpolator());
+                    valueAnimator.addUpdateListener(animatorUpdateListener);
+                    valueAnimator.setDuration(200);
+                    valueAnimator.start();
                     offsetFromTop = headerView.getMeasuredHeight();
-                    scrollTo(0, -headerView.getMeasuredHeight());
                 }
                 break;
         }
