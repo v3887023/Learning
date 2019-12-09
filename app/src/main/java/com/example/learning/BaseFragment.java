@@ -39,6 +39,13 @@ public abstract class BaseFragment extends Fragment {
         activity = (Activity) context;
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        originScreenOrientation = getRequestedOrientation();
+    }
+
     protected void runOnUiThread(Runnable runnable) {
         if (activity != null) {
             activity.runOnUiThread(runnable);
@@ -72,8 +79,6 @@ public abstract class BaseFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        originScreenOrientation = getRequestedOrientation();
-
         if (fullScreen()) {
             setFullscreen(true);
         }
@@ -114,7 +119,7 @@ public abstract class BaseFragment extends Fragment {
         return activity == null ? ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED : activity.getRequestedOrientation();
     }
 
-    protected void setRequestedOrientation(int requestedOrientation) {
+    private void setRequestedOrientation(int requestedOrientation) {
         if (activity != null) {
             activity.setRequestedOrientation(requestedOrientation);
             onOrientationChange(requestedOrientation);

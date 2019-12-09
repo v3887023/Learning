@@ -29,14 +29,26 @@ public class HomeActivity extends AppCompatActivity {
     public void onBackPressed() {
         List<Fragment> fragments = fragmentManager.getFragments();
 
-        if (fragments != null && fragments.size() > 0) {
-            int size = fragments.size();
-
-            Fragment fragment = fragments.get(size - 1);
-            if (fragment instanceof BaseFragment) {
-                if (((BaseFragment) fragment).handleBackPressedEvent()) {
-                    return;
+        int size = 0;
+        if (fragments != null) {
+            for (Fragment fragment : fragments) {
+                if (fragment instanceof BaseFragment) {
+                    size++;
                 }
+            }
+        }
+
+        if (size > 0) {
+            int i = fragments.size() - 1;
+            while (i > 0) {
+                Fragment fragment = fragments.get(i);
+                if (fragment instanceof BaseFragment) {
+                    if (((BaseFragment) fragment).handleBackPressedEvent()) {
+                        return;
+                    }
+                }
+
+                i--;
             }
         }
 
