@@ -1,5 +1,7 @@
 package com.example.learning.java;
 
+import java.util.List;
+
 import static com.example.learning.java.Utils.print;
 import static com.example.learning.java.Utils.println;
 
@@ -12,7 +14,9 @@ public class LinkedListTest {
         printLinkedList(list);
 
         ListNode head = reverseLinkedList(list);
+        printLinkedList(head);
 
+        head = reverseLinkedListRecursively(head);
         printLinkedList(head);
 
         ListNode listA = newLinkedList(3, 8, 11, 13, 15, 100, 1000, 1024);
@@ -93,6 +97,18 @@ public class LinkedListTest {
         }
 
         return head;
+    }
+
+    private static ListNode reverseLinkedListRecursively(ListNode list) {
+        if (list == null || list.next == null) {
+            return list;
+        }
+
+        ListNode node = reverseLinkedListRecursively(list.next);
+        list.next.next = list;
+        list.next = null;
+
+        return node;
     }
 
     private static ListNode newLinkedList(int... values) {
